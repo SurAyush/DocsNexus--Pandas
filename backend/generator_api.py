@@ -44,10 +44,10 @@ def generate(query: str, data_string: str) -> str:
 
     chat_completion = client.chat.completions.create(
     messages=[
-            {"role": "system", "content": (
-                "You are an expert in the pandas library. You are supposed to answer the user's query and not engage in conversation."
-                "You will be given relevant sections from the pandas documentation and you will generate a descriptive answer to the user's query."
-            )},
+            {"role": "system", 
+            "content": ("You are an expert in the pandas library. You are supposed to answer the user's query and not engage in conversation."
+                "You will be given relevant sections from the pandas documentation and you will generate a concise answer to the user's query with the help of context provided if possible."
+                "If the query is not related to pandas, you will respond with 'I don't know'")},
             {"role": "user", "content": f"Query: {query} \n Information:\n{data_string}"}
         ],
         model="gemma2-9b-it",

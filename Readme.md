@@ -34,7 +34,7 @@ Developers and data engineers often struggle to remember all the functionalities
 ## 🤖 Models Used
 
 - **Local LLM**: `microsoft/Phi-3-mini-4k-instruct`  
-- **Cloud LLM**: `gemma-2b-it` / `gemma-9b-it` via [Groq](https://groq.com)
+- **Cloud LLM**: `gemma2-9b-it` via [Groq](https://groq.com)
 
 Both LLMs are used for:
 - Rephrasing user queries

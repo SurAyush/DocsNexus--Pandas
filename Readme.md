@@ -18,7 +18,7 @@ Developers and data engineers often struggle to remember all the functionalities
    Parses and processes `pandas/reference/api` content.
 
 2. **Embedding**  
-   Uses a `sentence-transformers/multi-qa-mpnet-base-dot-v1` to embed the documentation.
+   Uses a bi-encoder model to embed the documentation and also the query.
 
 3. **Vector Storage**  
    Stores the embeddings in a Weaviate vector database.
@@ -26,8 +26,14 @@ Developers and data engineers often struggle to remember all the functionalities
 4. **Query Rephrasing**  
    Before retrieval, a local/cloud LLM rephrases user queries into more precise technical prompts.
 
-5. **Semantic Retrieval + Generation**  
-   The rephrased query is used to retrieve relevant docs, and an LLM generates a contextual response.
+5. **Semantic Retrieval**  
+   The rephrased query is used to retrieve relevant docs using MIPS algorithm internally by Weaviate.
+
+6. **Cross-Encoder Reranking**
+   A cross-encoder BERT based model is used to rerank the retrieved documents before passing the top-k documents ahead.
+
+7. **Generator**
+   A local/cloud LLM is used to answer the query given the top-k relevant documents and the query.
 
 ---
 
@@ -35,12 +41,14 @@ Developers and data engineers often struggle to remember all the functionalities
 
 - **Local LLM**: `microsoft/Phi-3-mini-4k-instruct`  
 - **Cloud LLM**: `gemma2-9b-it` via [Groq](https://groq.com)
+- **Embedding**: `sentence-transformers/multi-qa-mpnet-base-dot-v1`
+- **Reranker**: `cross-encoder/ms-marco-MiniLM-L-6-v2`
 
 Both LLMs are used for:
 - Rephrasing user queries
 - Answer generation from retrieved documentation
 
-We do **not** use LLMs directly for retrieval, ensuring that results are grounded in the embedded documentation.
+We do **not** use LLMs directly for generation, ensuring that results are grounded in the embedded documentation.
 
 ---
 

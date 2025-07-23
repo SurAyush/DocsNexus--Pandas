@@ -89,7 +89,7 @@ uv sync
 .venv/Scripts/activate
 
 # Ingest the pandas documentation
-python -m weaviate.load_pandas.data
+python -m weaviate.load_pandas_data
 
 # Create a .env and save the GROQ_API_KEY
 
